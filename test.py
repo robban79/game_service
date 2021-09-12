@@ -39,10 +39,10 @@ print("Set message")
 
 for i in range(0, 11, 1):
     response = requests.post(BASE + "message/", {"id": id_user_1,
-                                                 "message": "hello you mother fucker "+f'{i}' })
+                                                 "message": "hello you "+f'{i}' })
     print(response.json())
     response = requests.post(BASE + "message/", {"id": id_user_2,
-                                                 "message": "hello back you mother fucker " + f'{i}'})
+                                                 "message": "hello you back back " + f'{i}'})
     print(response.json())
 
 print("Get all messages")
