@@ -19,6 +19,10 @@ class UserApi(Resource):
         self.user_args_parser.add_argument("name", type=str,
                                            help="Name of the person to create")
 
+        self.message_read_args_parser = reqparse.RequestParser()
+        self.message_read_args_parser.add_argument("id", type=str,
+                                                   help="Need valid user id")
+
     @staticmethod
     def abort_if_name_exist(name):
         for user in TheChat.users:
@@ -35,17 +39,29 @@ class UserApi(Resource):
         args = self.user_args_parser.parse_args()
         name = args["name"]
         if UserApi.abort_if_name_exist(name):
-            return "{}", 422
+            return "User already excist///", 422
         user = User(name)
         TheChat.users.append(user)
         return {"id": user.user_id}, 201
 
+    def get_user_from_id(user_id):
+        for user in TheChat.users:
+            if user.user_id == user_id:
+                return user.name
+        return ""
+
     def get(self):
         """
-        get  /user
+        get  /user {id, "Your game ID"}
         return: id
         """
         print("GET: Get users")
+        args = self.message_read_args_parser.parse_args()
+        user_id = args["id"]
+        name = UserApi.get_user_from_id(user_id)
+        if name == "":
+            return "Forbidden///", 403
+
         users = []
         for user in TheChat.users:
             users.append({"name": user.name})

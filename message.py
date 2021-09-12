@@ -3,9 +3,13 @@ from the_chat import TheChat
 
 
 class ChatMessage:
+    count = 0
+
     def __init__(self, user_id, message):
         self.user_id = user_id
         self.message = message
+        ChatMessage.count += 1
+        self.message_id = ChatMessage.count
 
     def to_string(self):
         return f'message: {self.message}'
@@ -70,8 +74,7 @@ class MessageApi(Resource):
 
         messages = []
         for message in TheChat.messages:
-            print({"name":  MessageApi.get_user_from_id(message.user_id), "message": message.message})
-            messages.append({"name":  MessageApi.get_user_from_id(message.user_id), "message": message.message})
+            messages.append({"message_id": message.message_id, "name":  MessageApi.get_user_from_id(message.user_id), "message": message.message})
         answer = {"Messages:": messages}
         print(answer)
         return answer, 200

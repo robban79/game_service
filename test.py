@@ -11,13 +11,13 @@ BASE = "http://127.0.0.1:5000/"
 response = requests.get(BASE + "user/")
 print(response.json())
 
+
 # Add two users
 response = requests.post(BASE + "user/", {"name": "user1"})
 print(response.json())
 id_user_1 = "1"
 if f'{response.json()}'.find("id") >= 0:
     id_user_1 = response.json()["id"]
-
 
 response = requests.post(BASE + "user/", {"name": "user2"})
 print(response.json())
@@ -26,7 +26,7 @@ if f'{response.json()}'.find("id") >= 0:
     id_user_2 = response.json()["id"]
 
 # Get users again
-response = requests.get(BASE + "user/")
+response = requests.get(BASE + "user/", {"id": id_user_1})
 print(response.json())
 
 response = requests.put(BASE + "user/")
