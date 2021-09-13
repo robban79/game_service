@@ -2,11 +2,12 @@
 
 A simple REST API server made with flask
 
-## Dependencies:
+## Dependencies
 Flask, Flask-RESTful, pyOpenSSL
 
 ## Usage
-Run 10.0.2.2: port, 5000 to get hold of localhost on your device
+Run chat_server.py, Note/Warning: Default starts in debug mode, no ssl and broadcast.
+Setup client to 10.0.2.2: port, 5000 to get hold of localhost on your device
 
 ### Add user
 POST: /user/{name: "Your game name"}
