@@ -2,6 +2,9 @@
 
 A simple REST API server made with flask
 
+## Dependencies:
+Flask, Flask-RESTful, pyOpenSSL
+
 ## Usage
 Run 10.0.2.2: port, 5000 to get hold of localhost on your device
 
