@@ -21,7 +21,8 @@ class UserApi(Resource):
 
         self.message_read_args_parser = reqparse.RequestParser()
         self.message_read_args_parser.add_argument("id", type=str,
-                                                   help="Need valid user id")
+                                                   help="Need valid user id",
+                                                   location='args')
 
     @staticmethod
     def abort_if_name_exist(name):
@@ -38,11 +39,14 @@ class UserApi(Resource):
         print("POST: ADD user")
         args = self.user_args_parser.parse_args()
         name = args["name"]
+        print(name)
+        if name is None or name == "":
+            return "Cant create user with that name///", 401
         if UserApi.abort_if_name_exist(name):
             return "User already excist///", 422
         user = User(name)
         TheChat.users.append(user)
-        return {"id": user.user_id}, 201
+        return {"id": user.user_id, "name": user.name}, 201
 
     def get_user_from_id(user_id):
         for user in TheChat.users:
@@ -56,6 +60,7 @@ class UserApi(Resource):
         return: id
         """
         print("GET: Get users")
+
         args = self.message_read_args_parser.parse_args()
         user_id = args["id"]
         name = UserApi.get_user_from_id(user_id)
@@ -65,8 +70,8 @@ class UserApi(Resource):
         users = []
         for user in TheChat.users:
             users.append({"name": user.name})
-        answer = {"users:": users}
-        return json.dumps(answer), 200
+        answer = users
+        return answer, 200
 
     def put(self):
         print("PUT: Test printout users")

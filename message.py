@@ -50,7 +50,7 @@ class MessageApi(Resource):
             return "Forbidden///", 403
         message = ChatMessage(user_id, args["message"])
         TheChat.messages.append(message)
-        return {"id": user_id}, 201
+        return {"id": user_id, "message_id": message.message_id, "message": message.message}, 201
 
     @staticmethod
     def get_user_from_id(user_id):
@@ -62,7 +62,7 @@ class MessageApi(Resource):
     def get(self):
         """
         get
-        /user
+        /message
         return: id
         """
         print("GET: Get messages")
@@ -71,17 +71,14 @@ class MessageApi(Resource):
         name = MessageApi.get_user_from_id(user_id)
         if name == "":
             return "Forbidden///", 403
-
         messages = []
         for message in TheChat.messages:
             messages.append({"message_id": message.message_id, "name":  MessageApi.get_user_from_id(message.user_id), "message": message.message})
-        answer = {"Messages:": messages}
-        print(answer)
-        return answer, 200
+        print(messages)
+        return messages, 200
 
     def put(self):
         print("PUT: Testprint out messates")
         for message in TheChat.messages:
             print(message.to_string())
-
         return "", 200

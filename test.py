@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import uuid
-
 import requests
 
 # BASE = "http://192.168.50.85:5000/"
@@ -15,7 +14,7 @@ print(response.json())
 # Add two users
 response = requests.post(BASE + "user/", {"name": "user1"})
 print(response.json())
-id_user_1 = "1"
+id_user_1 = ""
 if f'{response.json()}'.find("id") >= 0:
     id_user_1 = response.json()["id"]
 
@@ -26,7 +25,7 @@ if f'{response.json()}'.find("id") >= 0:
     id_user_2 = response.json()["id"]
 
 # Get users again
-response = requests.get(BASE + "user/", {"id": id_user_1})
+response = requests.get(BASE + "user/", params={"id": id_user_1})
 print(response.json())
 
 response = requests.put(BASE + "user/")
