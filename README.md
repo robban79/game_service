@@ -16,13 +16,13 @@ POST: /user/{name: "Your game name"}
 ### Get users
 get  /user/{id, "Your game id"}
 #### response:
-200 - {users:, [name: "user-1",..., name: "user-n" ]}
+200 - {[{id: null,name: "user-1"},..., {id: null, name: "user-n"0 ]}
 403 - Forbidden/// Not a vald game id
 
 ### Add message
 POST: /message/{id, "Your game id", message: "Your message"}
 #### response:
-201 - {id, "Your game id"}
+201 - {id, "Your game id", message_id= 1, message: "your message"}
 403 - Forbidden/// Not a vald game id
 
 ### Get messages
